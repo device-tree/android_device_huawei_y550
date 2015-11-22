@@ -31,6 +31,8 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define _SENSOR_CALIBRATION_MANAGER_H
 
 #include "CalibrationModule.h"
+#include <stdlib.h>
+#include <string.h>
 
 #define MAX_CAL_LIBS	32
 #define MAX_CAL_CFG_LEN	1024

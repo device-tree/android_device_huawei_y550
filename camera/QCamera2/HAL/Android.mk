@@ -17,7 +17,7 @@ LOCAL_SRC_FILES := \
         QCameraThermalAdapter.cpp \
         wrapper/QualcommCamera.cpp
 
-LOCAL_CFLAGS = -Wall
+LOCAL_CFLAGS = -Wall -Werror -DDEFAULT_ZSL_MODE_ON -DDEFAULT_DENOISE_MODE_ON
 #Debug logs are enabled
 #LOCAL_CFLAGS += -DDISABLE_DEBUG_LOG
 
@@ -30,19 +30,25 @@ endif
 
 LOCAL_C_INCLUDES := \
         $(LOCAL_PATH)/../stack/common \
+        frameworks/native/include/media/hardware \
         frameworks/native/include/media/openmax \
-        hardware/qcom/display-caf/$(TARGET_BOARD_PLATFORM)/libgralloc \
-        hardware/qcom/media-caf/$(TARGET_BOARD_PLATFORM)/libstagefrighthw \
-        system/media/camera/include \
+        $(call project-path-for,qcom-display)/libgralloc \
+        $(call project-path-for,qcom-media)/libstagefrighthw \
         $(LOCAL_PATH)/../../mm-image-codec/qexif \
         $(LOCAL_PATH)/../../mm-image-codec/qomx_core \
         $(LOCAL_PATH)/../util \
         $(LOCAL_PATH)/wrapper
 
-ifeq ($(TARGET_USE_VENDOR_CAMERA_EXT),true)
-LOCAL_C_INCLUDES += hardware/qcom/display-caf/msm8974/libgralloc
+ifeq ($(call is-platform-sdk-version-at-least,20),true)
+LOCAL_C_INCLUDES += system/media/camera/include
 else
-LOCAL_C_INCLUDES += hardware/qcom/display-caf/$(TARGET_BOARD_PLATFORM)/libgralloc
+LOCAL_CFLAGS += -DUSE_KK_CODE
+endif
+
+ifeq ($(TARGET_USE_VENDOR_CAMERA_EXT),true)
+LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/msm8974/libgralloc
+else
+LOCAL_C_INCLUDES += $(call project-path-for,qcom-display)/libgralloc
 endif
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include/media

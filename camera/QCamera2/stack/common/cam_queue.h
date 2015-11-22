@@ -28,7 +28,6 @@
  */
 
 #include "cam_list.h"
-#include <stdlib.h> // get rid of multiple implicit declaration errors of malloc and free
 #include <string.h>
 
 typedef struct {
