@@ -1,1 +1,18 @@
 Android Device Tree for the Huawei Ascend Y550.
+
+
+What´s working / what´s not working
+
+WORKING:
+ - 
+ 
+NOT WORKING:
+ -
+ 
+ADDITIONAL:
+Device tree needs to be improved. CM13 can´t be compiled properly at this current status of development on this 
+device tree.
+//- from: 09.11.2015
+
+CURRENT STATUS:
+Unfinished
